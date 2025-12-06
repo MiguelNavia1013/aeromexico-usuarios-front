@@ -1,59 +1,171 @@
-# AeromexicoUsuariosFront
+✈️ Aeromexico – Frontend de Administración de Usuarios
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.2.
+Aplicación desarrollada en Angular 17 Standalone Components, que consume la API Aeromexico Usuarios.
+Incluye:
 
-## Development server
+Login con JWT
 
-To start a local development server, run:
+CRUD de usuarios
 
-```bash
-ng serve
-```
+Vista de auditoría
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Guards de autenticación
 
-## Code scaffolding
+Interceptor para token
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+UI limpia con estilos personalizados
 
-```bash
-ng generate component component-name
-```
+🛠️ Tecnologías utilizadas
+Función	Tecnología
+Framework	Angular 17
+Routing	Angular Router (standalone)
+HTTP	HttpClient
+Auth	JWT + Interceptor
+Estilos	SCSS global
+Guards	CanActivateFn
+🚀 Requisitos previos
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Node.js 18+
 
-```bash
-ng generate --help
-```
+Angular CLI 17+
 
-## Building
+Navegador moderno
 
-To build the project run:
+Backend .NET corriendo en local
 
-```bash
-ng build
-```
+📦 Instalación
+npm install
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+▶️ Ejecutar el proyecto
+ng serve -o
 
-## Running unit tests
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Se abrirá en:
 
-```bash
-ng test
-```
+👉 http://localhost:4200/
 
-## Running end-to-end tests
+🔐 Autenticación
 
-For end-to-end (e2e) testing, run:
+El login requiere que exista un usuario en la API.
+Por default, el backend crea automáticamente:
 
-```bash
-ng e2e
-```
+admin@aeromexico.com
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Additional Resources
+El frontend guarda el token en localStorage.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+🧩 Arquitectura del frontend
+/src
+ ├─ /app
+ │    ├── app.routes.ts
+ │    ├── app.config.ts
+ │    ├── servicios/
+ │    │      ├── servicio-autenticacion.service.ts
+ │    │      └── servicio-usuarios.service.ts
+ │    ├── interceptores/
+ │    │      └── interceptor-autorizacion.interceptor.ts
+ │    ├── guardianes/
+ │    │      └── guardian-autenticacion.guard.ts
+ │    ├── paginas/
+ │           ├── pagina-inicio-sesion/
+ │           ├── pagina-lista-usuarios/
+ │           └── pagina-auditoria/
+ ├─ /environments/
+ │      └── environment.ts
+ └─ styles.scss
+
+🌐 Configuración de API
+
+En src/environments/environment.ts:
+
+export const environment = {
+  production: false,
+  urlApi: 'https://localhost:44302'
+};
+
+
+(Ajusta el puerto según tu API)
+
+🛡 Seguridad frontend
+🔹 Interceptor JWT
+
+Agrega automáticamente el token en todas las peticiones:
+
+Authorization: Bearer {token}
+
+🔹 Guard de autenticación
+
+Bloquea rutas sensibles:
+
+{ path: 'usuarios', canActivate: [guardianAutenticacion] }
+
+📄 Funcionalidades
+🔹 Inicio de sesión
+
+Solo solicita correo
+
+Si es válido, redirige a /usuarios
+
+🔹 Administración de usuarios
+
+Crear usuario
+
+Editar usuario
+
+Eliminar usuario
+
+Validaciones visuales
+
+Mensajes de éxito/error
+
+Redibujo estable gracias a ChangeDetectorRef
+
+🔹 Auditoría
+
+Tabla con acciones históricas
+
+Botón para volver a administración de usuarios
+
+🎨 Mejoras visuales
+
+Incluyen:
+
+Layout centrado
+
+Tarjetas (.tarjeta) con sombra
+
+Tablas limpias
+
+Botones estilizados (primario, secundario, peligro)
+
+Alertas de error/exito visibles
+
+🧪 Pruebas recomendadas
+
+Login → Usuarios → Auditoría
+
+Crear usuario → ver auditoría
+
+Editar usuario → ver auditoría
+
+Eliminar usuario → ver auditoría
+
+Intentar entrar a /usuarios sin token → redirige a login
+
+Ver manejo de errores en pantalla
+
+📝 Extras implementados (Plus)
+
+Angular 17 Standalone
+
+Guards modernos (CanActivateFn)
+
+Interceptor funcional
+
+SCSS global profesional
+
+UI limpia tipo dashboard
+
+Mensajes consistentes de error/exito
+
+Carga estable con ChangeDetectorRef
