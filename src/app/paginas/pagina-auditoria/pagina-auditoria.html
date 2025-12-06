@@ -1,0 +1,40 @@
+<div class="pagina">
+    <div class="tarjeta">
+
+        <div class="barra-superior">
+            <h1 class="titulo-pagina">Auditoría de usuarios</h1>
+            <div>
+                <button class="boton boton-secundario" routerLink="/usuarios">
+                    Administración de usuarios
+                </button>
+            </div>
+        </div>
+
+        <div *ngIf="mensajeError" class="alerta alerta-error">
+            {{ mensajeError }}
+        </div>
+
+        <table class="tabla" *ngIf="registros.length > 0">
+            <thead>
+                <tr>
+                    <th>Fecha/Hora</th>
+                    <th>ID Usuario</th>
+                    <th>Acción</th>
+                    <th>Realizado por</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let registro of registros">
+                    <td>{{ registro.fechaHora | date:'short' }}</td>
+                    <td>{{ registro.idUsuario }}</td>
+                    <td>{{ registro.accion }}</td>
+                    <td>{{ registro.realizadoPor }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div *ngIf="registros.length === 0 && !mensajeError">
+            No hay registros de auditoría disponibles.
+        </div>
+    </div>
+</div>

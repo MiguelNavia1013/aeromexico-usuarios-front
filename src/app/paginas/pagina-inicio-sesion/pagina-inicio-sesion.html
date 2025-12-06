@@ -1,0 +1,29 @@
+<div class="pagina">
+    <div class="tarjeta">
+        <h1 class="titulo-pagina">Inicio de sesión</h1>
+
+        <div *ngIf="mensajeError" class="alerta alerta-error">
+            {{ mensajeError }}
+        </div>
+
+        <form [formGroup]="formularioInicioSesion" (ngSubmit)="iniciarSesion()">
+            <div class="formulario-fila">
+                <div>
+                    <label for="correoElectronico">Correo electrónico</label>
+                    <input id="correoElectronico" type="email" formControlName="correoElectronico"
+                        placeholder="usuario@ejemplo.com" />
+                </div>
+                <div style="display: flex; align-items: flex-end;">
+                    <button type="submit" class="boton boton-primario" [disabled]="cargando">
+                        {{ cargando ? 'Iniciando...' : 'Ingresar' }}
+                    </button>
+                </div>
+            </div>
+
+            <div *ngIf="formularioInicioSesion.get('correoElectronico')?.invalid
+                  && formularioInicioSesion.get('correoElectronico')?.touched" class="alerta alerta-error">
+                Ingresa un correo electrónico válido.
+            </div>
+        </form>
+    </div>
+</div>

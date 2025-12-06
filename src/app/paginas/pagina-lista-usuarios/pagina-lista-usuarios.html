@@ -1,0 +1,86 @@
+<div class="pagina">
+    <div class="tarjeta">
+
+        <div class="barra-superior">
+            <h1 class="titulo-pagina">Administración de usuarios</h1>
+
+            <div>
+                <button class="boton boton-secundario" (click)="irAUsuarios()">
+                    Usuarios
+                </button>
+                <button class="boton boton-secundario" routerLink="/auditoria">
+                    Ver auditoría
+                </button>
+                <button class="boton boton-peligro" (click)="cerrarSesion()">
+                    Cerrar sesión
+                </button>
+            </div>
+        </div>
+
+        <div *ngIf="mensajeError" class="alerta alerta-error">
+            {{ mensajeError }}
+        </div>
+        <div *ngIf="mensajeExito" class="alerta alerta-exito">
+            {{ mensajeExito }}
+        </div>
+
+        <!-- Formulario crear/editar -->
+        <form [formGroup]="formularioUsuario" (ngSubmit)="guardarUsuario()">
+            <div class="formulario-fila">
+                <div>
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" type="text" formControlName="nombre" />
+                </div>
+                <div>
+                    <label for="correoElectronico">Correo</label>
+                    <input id="correoElectronico" type="email" formControlName="correoElectronico" />
+                </div>
+                <div>
+                    <label for="rol">Rol</label>
+                    <input id="rol" type="text" formControlName="rol" />
+                </div>
+                <div style="display: flex; align-items: flex-end;">
+                    <button type="submit" class="boton boton-primario">
+                        {{ idUsuarioEditando ? 'Guardar cambios' : 'Crear usuario' }}
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Validaciones básicas -->
+        <div *ngIf="formularioUsuario.invalid && formularioUsuario.touched" class="alerta alerta-error">
+            Revisa que todos los campos estén completos y que el correo sea válido.
+        </div>
+
+        <!-- Tabla usuarios -->
+        <table class="tabla" *ngIf="usuarios.length > 0">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                    <th style="width: 180px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let usuario of usuarios">
+                    <td>{{ usuario.nombre }}</td>
+                    <td>{{ usuario.correoElectronico }}</td>
+                    <td>{{ usuario.rol }}</td>
+                    <td>
+                        <button class="boton boton-secundario" (click)="seleccionarUsuarioParaEditar(usuario)">
+                            Editar
+                        </button>
+                        <button class="boton boton-peligro" (click)="eliminarUsuario(usuario)">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div *ngIf="usuarios.length === 0">
+            No hay usuarios registrados todavía.
+        </div>
+    </div>
+</div>
